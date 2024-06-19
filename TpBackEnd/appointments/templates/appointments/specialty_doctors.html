@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ specialty.name }}{% endblock %}
+
+{% block content %}
+  <h2>{{ specialty.name }}</h2>
+  <ul>
+    {% for doctor in doctors %}
+      <li>
+        {{ doctor.name }}
+        <a href="{% url 'book_appointment' doctor.id %}"><button>Reservar</button></a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

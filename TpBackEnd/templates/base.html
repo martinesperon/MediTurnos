@@ -14,6 +14,7 @@
             <ul>
                 <li><a href="{% url 'index' %}">Página principal</a></li>
                 {% if user.is_authenticated %}
+                <li><a href="{% url 'specialty_doctors' %}">Oftalmología</a></li>
                     <li><a href="{% url 'profile' %}">Perfil</a></li>
                     <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
                 {% else %}

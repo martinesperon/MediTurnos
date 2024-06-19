@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),  # Incluye las URLs de la app de "accounts"
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('appointments/', include('appointments.urls')), # Incluye las URLs de la app "appointments"
+    # path('', include('TpBackEnd.urls')), # Eliminar o modificar si es necesario
 ]

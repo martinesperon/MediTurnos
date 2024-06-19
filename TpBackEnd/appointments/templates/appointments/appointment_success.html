@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Turno Reservado{% endblock %}
+
+{% block content %}
+<h2>¡Turno Reservado!</h2>
+<p>Tu turno ha sido reservado exitosamente.</p>
+<a href="{% url 'specialty_doctors' 'Oftalmología' %}">Volver a Oftalmología</a>
+{% endblock %}
