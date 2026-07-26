@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Editar{% else %}Reservar{% endif %} turno{% endblock %}
+
+{% block content %}
+<h2>{% if object %}Editar turno con{% else %}Reservar turno con{% endif %} {{ doctor.name }}</h2>
+<p>Horario de atención: {{ doctor.available_from|time:"H:i" }} - {{ doctor.available_to|time:"H:i" }}</p>
+<div class="form-card">
+    <form method="post" class="js-validate">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn" type="submit">Guardar</button>
+    </form>
+</div>
+{% endblock %}

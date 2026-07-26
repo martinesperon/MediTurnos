@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Turnos Médicos{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="brand" href="{% url 'index' %}">Consultorio</a>
+            <ul>
+                <li><a href="{% url 'specialty_list' %}">Especialidades</a></li>
+                <li><a href="{% url 'doctor_list' %}">Médicos</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'appointment_list' %}">Mis turnos</a></li>
+                    <li><a href="{% url 'patient_profile' %}">Mi perfil</a></li>
+                    <li><a href="{% url 'logout' %}">Salir ({{ user.username }})</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                    <li><a class="btn btn-accent" href="{% url 'register' %}">Registrarme</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2026 IFTS 18 · Turnos Médicos</p>
+    </footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

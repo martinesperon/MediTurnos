@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Bienvenido al sistema de Turnos Médicos</h1>
+<p>Encontrá tu especialidad, elegí un médico y reservá tu turno online.</p>
+<p>
+    <a class="btn" href="{% url 'specialty_list' %}">Ver especialidades</a>
+    <a class="btn" href="{% url 'doctor_list' %}">Ver médicos</a>
+</p>
+{% endblock %}

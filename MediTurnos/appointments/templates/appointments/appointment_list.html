@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Mis turnos{% endblock %}
+
+{% block content %}
+<h2>Mis turnos</h2>
+
+<form method="get" class="filter-form">
+    {{ filter_form.as_p }}
+    <button class="btn" type="submit">Filtrar</button>
+</form>
+
+{% for appointment in appointments %}
+<div class="ticket">
+    <div class="ticket-main">
+        <h3>{{ appointment.doctor.name }}</h3>
+        <p>{{ appointment.reason|truncatechars:60 }}</p>
+        <p><span class="status-pill status-{{ appointment.status }}">{{ appointment.get_status_display }}</span></p>
+        <div class="ticket-actions">
+            <a href="{% url 'appointment_detail' appointment.pk %}">Ver</a>
+            <a href="{% url 'appointment_update' appointment.pk %}">Editar</a>
+            <a href="{% url 'appointment_delete' appointment.pk %}">Cancelar</a>
+        </div>
+    </div>
+    <div class="ticket-stub">
+        <span class="ticket-month">{{ appointment.date|date:"M" }}</span>
+        <span class="ticket-day">{{ appointment.date|date:"d" }}</span>
+        <span class="ticket-time">{{ appointment.time|time:"H:i" }}</span>
+    </div>
+</div>
+{% empty %}
+<p>No tenés turnos cargados. <a href="{% url 'doctor_list' %}">Buscar un médico</a>.</p>
+{% endfor %}
+
+{% if is_paginated %}
+<div class="pagination">
+    {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">← Anterior</a>{% endif %}
+    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Siguiente →</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

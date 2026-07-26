@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Médicos{% endblock %}
+
+{% block content %}
+<h2>Médicos</h2>
+
+<form method="get" class="filter-form">
+    {{ filter_form.as_p }}
+    <button class="btn" type="submit">Filtrar</button>
+</form>
+
+{% if user.is_authenticated %}
+    <p><a class="btn btn-accent" href="{% url 'doctor_create' %}">+ Nuevo médico</a></p>
+{% endif %}
+
+<div class="card-grid">
+    {% for doctor in doctors %}
+    <div class="card">
+        <h3><a href="{% url 'doctor_detail' doctor.pk %}">{{ doctor.name }}</a></h3>
+        <p>Matrícula {{ doctor.license_number }}</p>
+        <p>
+            {% for specialty in doctor.specialties.all %}
+                <span class="tag">{{ specialty.name }}</span>
+            {% endfor %}
+        </p>
+        <p style="font-family:'IBM Plex Mono', monospace; font-size:0.85rem;">
+            {{ doctor.available_from|time:"H:i" }} – {{ doctor.available_to|time:"H:i" }}
+        </p>
+        <div class="card-actions">
+            {% if user.is_authenticated %}
+                <a href="{% url 'appointment_create' doctor.pk %}">Reservar turno</a>
+                <a href="{% url 'doctor_update' doctor.pk %}">Editar</a>
+                <a href="{% url 'doctor_delete' doctor.pk %}">Eliminar</a>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay médicos cargados.</p>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.specialty %}&specialty={{ request.GET.specialty }}{% endif %}">← Anterior</a>
+    {% endif %}
+    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.specialty %}&specialty={{ request.GET.specialty }}{% endif %}">Siguiente →</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

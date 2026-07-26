@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ specialty.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ specialty.name }}</h2>
+<p>{{ specialty.description|default:"Sin descripción cargada." }}</p>
+<p><a href="{% url 'specialty_list' %}">Volver al listado</a></p>
+{% endblock %}

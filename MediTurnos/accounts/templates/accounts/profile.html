@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<h2>Perfil</h2>
+<p>Bienvenido, {{ user.username }}!</p>
+<p>Email: {{ user.email|default:"Sin cargar" }}</p>
+<p><a class="btn" href="{% url 'patient_profile' %}">Ver mi ficha de paciente</a></p>
+{% endblock %}

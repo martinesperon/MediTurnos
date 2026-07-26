@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Cancelar turno{% endblock %}
+
+{% block content %}
+<h2>¿Cancelar el turno con "{{ appointment.doctor.name }}" del {{ appointment.date|date:"d/m/Y" }}?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Sí, cancelar</button>
+    <a class="btn" href="{% url 'appointment_list' %}">Volver</a>
+</form>
+{% endblock %}

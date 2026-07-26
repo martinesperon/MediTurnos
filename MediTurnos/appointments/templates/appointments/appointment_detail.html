@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Turno con {{ appointment.doctor.name }}{% endblock %}
+
+{% block content %}
+<h2>Turno con {{ appointment.doctor.name }}</h2>
+<p><strong>Fecha:</strong> {{ appointment.date|date:"d/m/Y" }}</p>
+<p><strong>Hora:</strong> {{ appointment.time|time:"H:i" }}</p>
+<p><strong>Motivo:</strong> {{ appointment.reason }}</p>
+<p><strong>Estado:</strong> {{ appointment.get_status_display }}</p>
+<p><a href="{% url 'appointment_list' %}">Volver a mis turnos</a></p>
+{% endblock %}

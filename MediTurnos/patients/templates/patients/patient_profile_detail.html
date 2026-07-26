@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi perfil{% endblock %}
+
+{% block content %}
+<h2>Mi perfil</h2>
+<table>
+    <tr><th>Usuario</th><td>{{ profile.user.username }}</td></tr>
+    <tr><th>Email</th><td>{{ profile.user.email|default:"Sin cargar" }}</td></tr>
+    <tr><th>Teléfono</th><td>{{ profile.phone|default:"Sin cargar" }}</td></tr>
+    <tr><th>Fecha de nacimiento</th><td>{{ profile.birth_date|date:"d/m/Y"|default:"Sin cargar" }}</td></tr>
+    <tr><th>Obra social</th><td>{{ profile.health_insurance|default:"Sin cargar" }}</td></tr>
+    <tr><th>Dirección</th><td>{{ profile.address|upper|default:"Sin cargar" }}</td></tr>
+</table>
+<p><a class="btn" href="{% url 'patient_profile_edit' %}">Editar perfil</a></p>
+{% endblock %}

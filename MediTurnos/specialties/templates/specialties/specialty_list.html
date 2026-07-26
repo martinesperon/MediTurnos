@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Especialidades{% endblock %}
+
+{% block content %}
+<h2>Especialidades</h2>
+
+<form method="get" class="search-form">
+    {{ search_form.as_p }}
+    <button class="btn" type="submit">Buscar</button>
+</form>
+
+{% if user.is_authenticated %}
+    <p><a class="btn btn-accent" href="{% url 'specialty_create' %}">+ Nueva especialidad</a></p>
+{% endif %}
+
+<div class="card-grid">
+    {% for specialty in specialties %}
+    <div class="card">
+        <h3><a href="{% url 'specialty_detail' specialty.pk %}">{{ specialty.name }}</a></h3>
+        <p>{{ specialty.description|truncatechars:80|default:"Sin descripción cargada." }}</p>
+        <p style="font-size:0.8rem; color:var(--ink-soft);">Creada el {{ specialty.created_at|date:"d/m/Y" }}</p>
+        {% if user.is_authenticated %}
+        <div class="card-actions">
+            <a href="{% url 'specialty_update' specialty.pk %}">Editar</a>
+            <a href="{% url 'specialty_delete' specialty.pk %}">Eliminar</a>
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p>No se encontraron especialidades.</p>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">← Anterior</a>
+    {% endif %}
+    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Siguiente →</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

@@ -201,3 +201,4 @@ env/
 # Ignore migrations (they should be created on target systems)
 /migrations/
 
+*.__pycache__/

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ doctor.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ doctor.name }}</h2>
+<p><strong>Matrícula:</strong> {{ doctor.license_number }}</p>
+<p><strong>Especialidades:</strong> {{ doctor.specialties_display }}</p>
+<p><strong>Horario:</strong> {{ doctor.available_from|time:"H:i" }} a {{ doctor.available_to|time:"H:i" }}</p>
+
+{% if user.is_authenticated %}
+<p><a class="btn" href="{% url 'appointment_create' doctor.pk %}">Reservar turno con este médico</a></p>
+{% endif %}
+<p><a href="{% url 'doctor_list' %}">Volver al listado</a></p>
+{% endblock %}
